@@ -1,52 +1,55 @@
-   // p5.js sketch
+// define global variables here
 numbers = []
 
-   function setup() {
-    // Create a canvas that fits the window
-    createCanvas(windowWidth, windowHeight);
-    background(220); // Light gray background
-  }
+function setup()
+{
+  createCanvas(windowWidth, windowHeight);
+  background(220);
+}
 
-  function draw() {
-    // Draw a circle wherever the mouse is
-    fill(100, 150, 255, 150); // Light blue with some transparency
-    drawNumbers()
+function draw()
+{
+  fill(100, 150, 255, 150); // Light blue with some transparency
+  drawNumbers()
+}
 
-  }
-
-  function drawNumbers()
+function drawNumbers()
+{
+  for (number of numbers)
   {
-    for (number of numbers)
+      text(number.number, number.x, number.y)   
+  }
+}
+
+// mouseClicked is one of the built-in p5.js event handlers - see https://editor.p5js.org/dansakamoto/sketches/r1tT87QKm
+function mouseClicked()
+{
+      // here we are calling an asynchronous function from a non-async scope
+      // therefore we have to use .then()
+      number = getNumber().then(number => {
+      numbers.push({number:number, x:mouseX, y:mouseY}) // appends a JS object to the numbers list
+      });
+}
+
+async function getNumber() {
+  // fetch API  GET request function based on boilerplate from
+  // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+
+  const url = "api/get_number"
+  try
+  {
+    const response = await fetch(url);
+    if (!response.ok)
     {
-        text(number.number, number.x, number.y)   
+      throw new Error(`Response status: ${response.status}`);
     }
-  }
 
-  function windowResized() {
-    // Resize the canvas when the window is resized
-    resizeCanvas(windowWidth, windowHeight);
-    background(220);
-  }
+    const json = await response.json()
 
-  function mouseClicked()
+    return json.number
+  }
+  catch (error)
   {
-        number = getNumber()
-        console.log("Got a number its", number)
-        numbers.push({number:number, x:mouseX, y:mouseY})
+    console.error(error.message);
   }
-
-  async function getNumber() {
-    const url = "api/get_number"
-    try {
-      const response = await fetch(url);
-      if (!response.ok) {
-        throw new Error(`Response status: ${response.status}`);
-      }
-  
-      const json = await response.json();
-      console.log("was this promosed", json)
-      return json.number
-    } catch (error) {
-      console.error(error.message);
-    }
-  }
+}
