@@ -9,6 +9,7 @@ function setup()
 
 function draw()
 {
+  text("Click the screen to get a number from Python ☺", 20, 20)
   fill(100, 150, 255, 150); // Light blue with some transparency
   drawNumbers()
 }
@@ -17,7 +18,7 @@ function drawNumbers()
 {
   for (number of numbers)
   {
-      text(number.number, number.x, number.y)   
+      text("Python gave me this number: " + number.number, number.x, number.y)   
   }
 }
 
