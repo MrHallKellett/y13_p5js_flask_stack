@@ -1,12 +1,6 @@
 from flask import Flask, render_template, make_response
 from random import randint
 
-# testing
-# why don't you work?!
-
-# are you going to work now?
-# why?!!?!?
-
 app = Flask(__name__)
 
 ############################################################
