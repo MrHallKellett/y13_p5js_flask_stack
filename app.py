@@ -1,4 +1,4 @@
-from flask import Flask, render_template, make_response
+
 from random import randint
 
 app = Flask(__name__)
@@ -22,3 +22,7 @@ def get_number():
 
 if __name__ == "__main__":
     app.run()
+    print("Testing!")
+    print("Hello")
+    print("Hello")
+    print("Hello")
